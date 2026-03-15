@@ -1,0 +1,4 @@
+# Ignore everything by default
+**
+
+# If we ever decide to build an image, explicitly allow files below

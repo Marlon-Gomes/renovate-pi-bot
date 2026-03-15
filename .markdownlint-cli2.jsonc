@@ -1,0 +1,16 @@
+{
+  "config": {
+    // Disable line length limit; modern editors wrap text automatically.
+    "MD013": false,
+    // Allow inline HTML for things like <sub> or <br> in READMEs.
+    "MD033": false,
+    // Allow multiple headers with the same content (useful for 'Setup' in different sections).
+    "MD024": { "siblings_only": true },
+    // Use ordered list prefixes (1. 2. 3.) instead of forced '1. 1. 1.' for readability in raw text.
+    "MD029": { "style": "ordered" },
+    // Allow '?' or '!' at the end of headers (common for FAQ or help sections).
+    "MD026": { "punctuation": ".,;:" }
+  },
+  // Ensure we only lint your repo files and ignore the data cache.
+  "ignores": ["data/**"]
+}
