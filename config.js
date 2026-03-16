@@ -15,6 +15,10 @@ module.exports = {
   containerbaseDir: '/tmp/renovate/containerbase', // Specific directory for downloaded binaries/tools
   persistRepoData: true, // Speeds up nightly runs by keeping git clones
 
+  // Dashboard and Lifecycle
+  dependencyDashboard: true,
+  rebaseWhen: 'conflicted',
+
   // Execution Logic
   onboarding: true, // Creates an onboarding PR for new repos
   // Use local timezone if environment variable is set, else UTC as default
