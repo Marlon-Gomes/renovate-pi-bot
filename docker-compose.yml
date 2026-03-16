@@ -1,6 +1,6 @@
 services:
   renovate:
-    image: renovate/renovate:43.76.1
+    image: renovate/renovate:43.76.1-full
     container_name: renovate_bot
     # Uses shell variables, defaults to 1000:1000 if they aren't set
     user: "${RENOVATE_UID:-1000}:${RENOVATE_GID:-1000}"
