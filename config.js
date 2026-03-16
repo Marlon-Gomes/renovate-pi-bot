@@ -24,6 +24,22 @@ module.exports = {
   // Use local timezone if environment variable is set, else UTC as default
   timezone: process.env.RENOVATE_TIMEZONE || 'UTC',
 
+  // Security Scanning and Prioritization
+  vulnerabilityAlerts: {
+    enabled: true,
+  },
+  osvVulnerabilityAlerts: true,
+
+  packageRules: [
+    {
+      // Match all security-related updates
+      matchCategories: ["security"],
+      // Set limit to 0 to bypass the default 2 PR/hour limit from config
+      prHourlyLimit: 0,
+      // Tag them so they are prevalent on inbox
+      addLabels: ["security", "priority:high"]
+    }
+  ],
   // Global Settings
   extends: [
     'config:recommended' // Applies industry standard best practices
