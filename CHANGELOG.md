@@ -5,7 +5,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## - 2026-03-15
+## [v0.2.0] - 2026-03-16
+
+### Added
+
+- Centralized status tracking and manual PR triggers via Dependency Dashboard.
+- Automatic resolution of simple merge conflicts via
+`rebaseWhen: 'conflicted'`.
+- Dual-source security vulnerability scanning (GitHub/OSV) with rate-limit
+bypass.
+- Persistent tool cache via `containerbaseDir`.
+
+### Fixed
+
+- Migrated to the `full` Docker image to resolve slim image `arm64` lockfile
+artifact upload failures.
+
+### Changed
+
+- Include version number in changelog anchors.
+
+## [v0.1.0] - 2026-03-15
 
 ### Added
 
