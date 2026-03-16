@@ -12,8 +12,8 @@ module.exports = {
   // Storage and Caching
   baseDir: '/tmp/renovate', // Renovate's internal working directory
   cacheDir: '/tmp/renovate/cache', // Specific directory for persistent data
+  containerbaseDir: '/tmp/renovate/containerbase', // Specific directory for downloaded binaries/tools
   persistRepoData: true, // Speeds up nightly runs by keeping git clones
-
 
   // Execution Logic
   onboarding: true, // Creates an onboarding PR for new repos
