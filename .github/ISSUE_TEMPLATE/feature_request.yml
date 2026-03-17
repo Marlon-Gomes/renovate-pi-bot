@@ -1,0 +1,113 @@
+name: "Feature Request"
+description: "Propose a new idea or enhancement"
+title: "[FEATURE] <short-description>"
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to request new functionality or improvements.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: One sentence description of the feature or improvement.
+      placeholder: Short description of the desired feature
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: Why is this feature needed? What problem does it solve?
+    validations:
+      required: true
+
+  - type: textarea
+    id: use_case
+    attributes:
+      label: Use case
+      description: Provide an example scenario showing how this feature would help.
+      placeholder: |
+        As a <role>, I want <capability>, so that <benefit>.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      options:
+        - High
+        - Medium
+        - Low
+    validations:
+      required: false
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - Core
+        - Optional
+        - Integration
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: breaking_change
+    attributes:
+      label: Breaking change
+      description: >
+        Check this box if this feature would require current users to change
+        their configuration or usage to retain existing behavior.
+      options:
+        - label: This feature introduces a breaking change.
+          required: true
+
+  - type: textarea
+    id: migration_strategy
+    attributes:
+      label: Migration strategy
+      description: >
+        If this is a breaking change, describe how existing users can transition
+        (for example, flags, config options, or step-by-step changes). Optional
+        for non-breaking changes.
+      placeholder: |
+        - Existing behavior:
+        - New default behavior:
+        - Steps for users to retain the old behavior:
+        - Steps for users to adopt the new behavior:
+    validations:
+      required: false
+
+  - type: textarea
+    id: proposed_solution
+    attributes:
+      label: Proposed solution
+      description: Outline how this could be implemented or integrated. High-level design is sufficient.
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: List other options you evaluated, if any, and why they are less suitable.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: The feature aligns with the project's goals.
+          required: false
+        - label: The feature does not duplicate existing functionality.
+          required: false
+        - label: Implementation complexity appears reasonable.
+          required: false
