@@ -57,16 +57,16 @@ body:
     validations:
       required: false
 
-  - type: dropdown
+  - type: checkboxes
     id: breaking_change
     attributes:
-      label: Does this introduce a breaking change?
-      description: A breaking change requires current users to modify their configuration or usage to retain existing behavior.
+      label: Breaking change
+      description: >
+        Check this box if this feature would require current users to change
+        their configuration or usage to retain existing behavior.
       options:
-        - No
-        - Yes
-    validations:
-      required: true
+        - label: This feature introduces a breaking change.
+          required: true
 
   - type: textarea
     id: migration_strategy
