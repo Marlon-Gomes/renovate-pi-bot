@@ -7,11 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
-### Added
+## [0.3.0] - 2026-03-19
 
-- GitHub issue templates for bug reports and feature requests.
+### Changed
 
-## [v0.2.0] - 2026-03-16
+- Suppress security labels in PRs and Dashboards to avoid disclosing security
+vulnerabilities in client code.
+
+## [0.2.0] - 2026-03-16
 
 ### Added
 
@@ -31,7 +34,7 @@ artifact upload failures.
 
 - Include version number in changelog anchors.
 
-## [v0.1.0] - 2026-03-15
+## [0.1.0] - 2026-03-15
 
 ### Added
 
@@ -42,3 +45,7 @@ artifact upload failures.
 - Pre-commit hooks for `shellcheck`, `markdownlint-cli2`, and basic hygiene.
 - `LICENSE` (MIT) and `README.md` with setup instructions.
 - `.dockerignore` safety mechanism to prevent credential leaks.
+
+[0.3.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.0
+[0.2.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.2.0
+[0.1.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.1.0

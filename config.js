@@ -36,8 +36,10 @@ module.exports = {
       matchCategories: ["security"],
       // Set limit to 0 to bypass the default 2 PR/hour limit from config
       prHourlyLimit: 0,
-      // Tag them so they are prevalent on inbox
-      addLabels: ["security", "priority:high"]
+      // Ensures no labels are added to the PR
+      addLabels: [],
+      // Ensures no security labels are added to the Dashboard issue
+      dependencyDashboardLabels: []
     }
   ],
   // Global Settings
