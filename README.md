@@ -149,6 +149,34 @@ sudo systemctl enable --now renovate.timer
     `sudo systemctl start renovate.service` or by starting the service directly
     from Cockpit.
 
+### Log Rotation
+
+Renovate appends to the log file indefinitely. To prevent `renovate.log` from
+consuming excessive disk space, use the standard Linux `logrotate` utility.
+Create a configuration file at `/etc/logrotate.d/renovate`:
+
+```text
+/opt/renovate/renovate.log {
+    daily
+    rotate 7
+    compress
+    delaycompress
+    missingok
+    notifyempty
+    copytruncate
+    # Replace with your actual UID and GID (e.g. 1000 1000)
+    create 0644 RENOVATE_UID RENOVATE_GID}
+}
+```
+
+Ensure the RENOVATE_UID AND RENOVATE_GID match the settings on your `.env` file
+so that the bot retains write permissions to the new file. You can test the
+`logrotate` setup with
+
+```bash
+sudo logrotate -d /etc/logrotate.d/renovate
+```
+
 ## Contributing
 
 To maintain code hygiene, this repository uses the
