@@ -20,10 +20,10 @@ services:
       # Logging
       - LOG_LEVEL=info
       - LOG_FORMAT=json
-      - LOG_FILE=/usr/src/app/renovate-dir/renovate.log
+      - LOG_FILE=/usr/src/app/renovate-dir/logs/renovate.log
       - LOG_FILE_LEVEL=debug
       - LOG_FILE_FORMAT=json
-      # Trick reonvate into using 'pretty' log mode in a non-TTY environment
+      # Trick renovate into using 'pretty' log mode in a non-TTY environment
       - FORCE_COLOR=0
       # Clean logs: Disables ANSI colors and progress bar animations
       # This ensures logs look good both in Cockpit and the local .log file
