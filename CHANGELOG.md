@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.3.1] - 2026-03-30
+
+### Added
+
+- Documentation for migrating to Systemd `.service` and `.timer` units.
+- Unbuffered Perl-based log filtering in `run-renovate.sh` for clean
+`LVL [repo] msg` output.
+- Conditional timestamping logic to prevent duplication in system journals.
+
+### Changed
+
+- Optimized `docker-compose.yml` with persistent volume caching.
+- Refactored `run-renovate.sh` to support dual-stream logging (JSON to file,
+plain-text to console).
+
 ## [0.3.0] - 2026-03-19
 
 ### Changed
@@ -46,6 +61,7 @@ artifact upload failures.
 - `LICENSE` (MIT) and `README.md` with setup instructions.
 - `.dockerignore` safety mechanism to prevent credential leaks.
 
+[0.3.1]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
 [0.3.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.2.0
 [0.1.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.1.0

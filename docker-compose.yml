@@ -10,12 +10,27 @@ services:
       - ./config.js:/usr/src/app/config.js
       # Maps the local data folder to the container's working directory for caching
       - ./data:/tmp/renovate
+      # Mounts the current directory so Renovate can write the log file to it
+      - .:/usr/src/app/renovate-dir
     environment:
       - RENOVATE_TOKEN=${RENOVATE_TOKEN}
       - RENOVATE_AUTODISCOVER_FILTER=${RENOVATE_AUTODISCOVER_FILTER}
       - RENOVATE_GIT_AUTHOR=${RENOVATE_GIT_AUTHOR}
       - RENOVATE_TIMEZONE=${RENOVATE_TIMEZONE}
-      # Optional: Override log levels or tokens here if needed
-      - RENOVATE_LOG_LEVEL=info
+      # Logging
+      - LOG_LEVEL=info
+      - LOG_FORMAT=json
+      - LOG_FILE=/usr/src/app/renovate-dir/renovate.log
+      - LOG_FILE_LEVEL=debug
+      - LOG_FILE_FORMAT=json
+      # Trick reonvate into using 'pretty' log mode in a non-TTY environment
+      - FORCE_COLOR=0
+      # Clean logs: Disables ANSI colors and progress bar animations
+      # This ensures logs look good both in Cockpit and the local .log file
+      - NO_COLOR=true
+      - RENOVATE_REDACT_SECRETS=true
+      # Caching: Forces renovate to use your mounted /opt/renovate/data folder
+      # Prevents redownloading modules
+      - RENOVATE_CACHE_DIR=/tmp/renovate/cache
     # Ensures the container removes itself after the run finishes
     restart: "no"

@@ -79,23 +79,75 @@ The main files and folders of this project are listed below.
 - Debug mode:
     `docker compose run --rm -e RENOVATE_LOG_LEVEL=debug renovate`
 
-## Automation (Cron)
+## Automation (Systemm & Cockpit)
 
-To automate the bot, add the script to your crontab by running `crontab -e`.
-The general format is:
-`MINUTE HOUR * * * /opt/renovate/run-renovate.sh`
+To bot is automated via **Systemd Timers** for better reliability and
+integrated logging via [Cockpit](https://cockpit-project.org).
 
-### Examples
+### Setup Service & Timer
 
-- **Nightly at 3:00 AM:**
-    `0 3 * * * /opt/renovate/run-renovate.sh`
-- **Weekly on sundays at 11:00 PM:**
-    `0 23 * * 0 /opt/renovate/run-renovate.sh`
-- **Twice daily (6 AM and 6 PM):**
-    `0 6,18 * * * /opt/renovate/run-renovate.sh`
+Create the following files in `/etc/systemd/system/`:
 
-> **Note:** Ensure you use the full absolute path to the script so cron can
-locate it regardless of the execution environment.
+- `renovate.service`:
+
+    ```ini
+    [Unit]
+        Description=Run Renovate Bot
+        Wants=network-online.target
+        After=network-online.target docker.service
+
+    [Service]
+        Type=oneshot
+        User=<your-username>
+        WorkingDirectory=/opt/renovate
+        ExecStart=/bin/bash /opt/renovate/run-renovate.sh
+        StandardOutput=journal
+        StandardError=journal
+
+    [Install]
+        WantedBy=multi-user.target
+    ```
+
+- `renovate.timer`:
+
+    ```ini
+    [Timer]
+        # See "Customizing the Schedule" below
+        OnCalendar=*-*-* 00,12:00:00
+        # Optional randomized delay up to 15 minutes
+        RandomizedDelaySec=15m
+        Persistent=true
+
+    [Install]
+        WantedBy=timers.target
+    ```
+
+### Customizing the Schedule
+
+To change how often the bot runs, edit the `OnCalendar` line in `renovate.timer`:
+
+- Twice daily (noon/midnight): `*-*-* 00,12:00:00`
+- Daily at 3 AM: `*-*-* 03:00:00`
+- Weekly on Mondays at 1 AM: `Mon *-*-* 01:00:00`
+- Hourly: hourly
+
+> Note: after changing the timer file, always run `sudo systemctl daemon-reload`
+to apply changes
+
+### Monitoring & Activation
+
+Enable the timer to start automatically on boot:
+
+```bash
+sudo systemctl enable --now renovate.timer
+```
+
+- Live logs: Real-time, filtered logs (info level) are streamed to `journalctl`
+    and can be visualized in the 'Services' tab in Cockpit.
+- Debug logs: full JSON logs are stored at `/opt/renovate/renovate.log`
+- Manual run: trigger an immedaite run with
+    `sudo systemctl start renovate.service` or by starting the service directly
+    from Cockpit.
 
 ## Contributing
 
