@@ -3,7 +3,7 @@
 
 # Renovate local data and cache
 data/
-renovate.log
+logs/
 
 # Created by https://www.toptal.com/developers/gitignore/api/linux,macos
 # Edit at https://www.toptal.com/developers/gitignore?templates=linux,macos

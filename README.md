@@ -144,7 +144,14 @@ sudo systemctl enable --now renovate.timer
 
 - Live logs: Real-time, filtered logs (info level) are streamed to `journalctl`
     and can be visualized in the 'Services' tab in Cockpit.
-- Debug logs: full JSON logs are stored at `/opt/renovate/renovate.log`
+- Debug logs: full JSON logs are stored at `/opt/renovate/logs/renovate.log`. To
+    integrate these with system logs, while maintaining the application
+    self-contained, use a symbolic link:
+
+    ```bash
+    sudo ln -sf /opt/renovate/logs /var/log/renovate
+    ```
+
 - Manual run: trigger an immedaite run with
     `sudo systemctl start renovate.service` or by starting the service directly
     from Cockpit.
@@ -158,7 +165,8 @@ Create a configuration file at `/etc/logrotate.d/renovate`:
 ```text
 /opt/renovate/renovate.log {
     daily
-    rotate 7
+    maxsize 50M
+    rotate 14
     compress
     delaycompress
     missingok
