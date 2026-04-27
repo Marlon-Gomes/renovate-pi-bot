@@ -17,6 +17,7 @@ services:
       - RENOVATE_AUTODISCOVER_FILTER=${RENOVATE_AUTODISCOVER_FILTER}
       - RENOVATE_GIT_AUTHOR=${RENOVATE_GIT_AUTHOR}
       - RENOVATE_TIMEZONE=${RENOVATE_TIMEZONE}
+      - HOME=/tmp/renovate
       # Logging
       - LOG_LEVEL=info
       - LOG_FORMAT=json
