@@ -46,4 +46,10 @@ module.exports = {
   extends: [
     'config:recommended' // Applies industry standard best practices
   ],
+  // Go override to ensure go tools have the right permissions
+  customEnvVariables: {
+    GOCACHE: '/tmp/renovate/cache/go-build',
+    GOPATH: '/tmp/renovate/cache/go',
+    HOME: '/tmp/renovate', // Keeps tools out of /home/ubuntu
+  }
 };
