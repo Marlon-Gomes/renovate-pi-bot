@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.4.0] - 2026-04-27
+
+### Added
+
+- Support for post-upgrade script execution via `allowedCommands` and
+`allowShellExecutorForPostUpgradeCommands` global settings
+
 ## [0.3.1] - 2026-03-30
 
 ### Added
@@ -61,6 +68,7 @@ artifact upload failures.
 - `LICENSE` (MIT) and `README.md` with setup instructions.
 - `.dockerignore` safety mechanism to prevent credential leaks.
 
+[0.4.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
 [0.3.1]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
 [0.3.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.2.0
