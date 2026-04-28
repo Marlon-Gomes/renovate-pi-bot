@@ -46,6 +46,8 @@ module.exports = {
   extends: [
     'config:recommended' // Applies industry standard best practices
   ],
+  allowedCommands: ["^(?:\\./)?tools/[\\w-]+\\.sh.*$"],
+  allowShellExecutorForPostUpgradeCommands: true,
   // Go override to ensure go tools have the right permissions
   customEnvVariables: {
     GOCACHE: '/tmp/renovate/cache/go-build',
