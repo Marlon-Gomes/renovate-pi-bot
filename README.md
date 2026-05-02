@@ -61,6 +61,10 @@ The main files and folders of this project are listed below.
     timedatectl
     ```
 
+    Prefer the timezone name (e.g., `America/New_York`) rather than a code
+    (e.g., `EDT`) or fixed offset (e.g., `-0400`) for automatic daylight savings
+    management, if applicable in your location.
+
     You can get user id and group id information with:
 
     ```bash
@@ -214,6 +218,62 @@ Now, every time you run `git commit`, these hooks will automatically run to:
 
 Note that markdownlint-cli2 does not offer fixes for all issues. You may need
 to make changes manually for some checks.
+
+## Known Issues and Limitations
+
+### Security Vulnerability Disclosure in Public Repositories
+
+By default, this bot is configured to provide detailed security insights. When a
+vulnerability is detected, Renovate generates a Pull Request containing a
+detailed table of CVE IDs, severity scores, and links to advisories.
+
+#### The Risk
+
+In public repositories, these PRs effectively broadcast known unpatched
+vulnerabilities in your project to the public before the fix is even merged.
+
+#### Recommended Mitigation Strategies
+
+If you are running this bot on a public repository, you should choose one of the
+following two patterns to protect your project.
+
+##### Option A: Silent "Ghost" Patching (Recommended)
+
+This approach scrubs the vulnerability table and merges the fix automatically.
+This is the best balance between security and discretion. Add this to your
+`renovate.json`:
+
+```JSON
+{
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["security"],
+      "automerge": true,
+      "automergeType": "pr",
+      "requiredStatusChecks": []
+    }
+  ]
+}
+```
+
+> Note: You may add required status checks to the empty array above, but be
+> mindful that if these status checks fail, the PR will be blocked and the
+> security vulnerabilities will be visible until the status checks pass.
+
+#### Option B: Disable Security Scanning
+
+If you prefer to handle security updates manually or through another tool
+(like GitHub Native Dependabot or OSV-Scanner) to avoid any automated
+disclosure, you can disable the feature entirely:
+
+```JSON
+{
+  "vulnerabilityAlerts": {
+    "enabled": false
+  },
+  "osvVulnerabilityAlerts": false
+}
+```
 
 ## License
 
