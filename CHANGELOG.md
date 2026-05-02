@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Changed
+
+- Documentation: Updated README with "Known Issues and Limitations" regarding
+public vulnerability disclosure and provided mitigation strategies for
+`renovate.json`.
+
 ## [0.4.0] - 2026-04-27
 
 ### Added
