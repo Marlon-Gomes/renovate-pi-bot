@@ -15,6 +15,11 @@ module.exports = {
   containerbaseDir: '/tmp/renovate/containerbase', // Specific directory for downloaded binaries/tools
   persistRepoData: true, // Speeds up nightly runs by keeping git clones
 
+  // Global Settings
+  extends: [
+    'config:recommended' // Applies industry standard best practices
+  ],
+
   // Dashboard and Lifecycle
   dependencyDashboard: true,
   rebaseWhen: 'conflicted',
@@ -25,26 +30,31 @@ module.exports = {
   timezone: process.env.RENOVATE_TIMEZONE || 'UTC',
 
   // Security Scanning and Prioritization
+  osvVulnerabilityAlerts: true,
   vulnerabilityAlerts: {
     enabled: true,
+    branchTopic: "{{depNameSanitized}}-{{newMajor}}.x",
+    commitMessageSuffix: ""
   },
-  osvVulnerabilityAlerts: true,
 
   packageRules: [
     {
       // Match all security-related updates
-      matchCategories: ["security"],
+      matchUpdateTypes: ["security"],
       // Set limit to 0 to bypass the default 2 PR/hour limit from config
       prHourlyLimit: 0,
       // Ensures no labels are added to the PR
       addLabels: [],
       // Ensures no security labels are added to the Dashboard issue
-      dependencyDashboardLabels: []
+      dependencyDashboardLabels: [],
+      // Enable silent patching
+      automerge: true,
+      automergeType: "pr", // Creates PR then merges it
+      automergeStrategy: "squash",
+      // By-pass the need for a passing status check
+      // WARNING: Repos with status checks should enable them in their own renovate.json
+      requiredStatusChecks: [],
     }
-  ],
-  // Global Settings
-  extends: [
-    'config:recommended' // Applies industry standard best practices
   ],
   allowedCommands: ["^(?:\\./)?tools/[\\w-]+\\.sh.*$"],
   allowShellExecutorForPostUpgradeCommands: true,

@@ -7,6 +7,23 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.5.0] - 2026-05-02
+
+### Added
+
+- Security: Enabled "silent patching" for `vulnerabilities` via `automerge` and
+`osvVulnerabilityAlerts`.
+- Config: Added `requiredStatusChecks: []` to security rules to allow immediate
+remediation (overridable per-repo).
+
+### Changed
+
+- Config: Switched security matching to `matchUpdateTypes: ["security"]` for
+better precision.
+- Privacy: Scrubbed security-related labels and dashboard tags to obfuscate
+vulnerability disclosures.
+- PRs: Standardized security branch naming and removed commit message suffixes.
+
 ## [0.4.0] - 2026-04-27
 
 ### Added
@@ -68,7 +85,8 @@ artifact upload failures.
 - `LICENSE` (MIT) and `README.md` with setup instructions.
 - `.dockerignore` safety mechanism to prevent credential leaks.
 
-[0.4.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
+[0.5.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.5.0
+[0.4.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.4.0
 [0.3.1]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
 [0.3.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.2.0
