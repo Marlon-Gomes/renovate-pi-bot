@@ -48,10 +48,11 @@ module.exports = {
   ],
   allowedCommands: ["^(?:\\./)?tools/[\\w-]+\\.sh.*$"],
   allowShellExecutorForPostUpgradeCommands: true,
-  // Go override to ensure go tools have the right permissions
+  // Tool environment overrides to ensure tools have the right permissions
   customEnvVariables: {
-    GOCACHE: '/tmp/renovate/cache/go-build',
-    GOPATH: '/tmp/renovate/cache/go',
-    HOME: '/tmp/renovate', // Keeps tools out of /home/ubuntu
+    HOME: '/tmp/renovate',
+    XDG_DATA_HOME: '$/tmp/renovate/.local/share',
+    XDG_CACHE_HOME: '$/tmp/renovate/cache',  // Enables automatic discovery for UV, Go
+    GOPATH: '$/tmp/renovate/cache/go'        // Required: Go doesn't use XDG_DATA_HOME
   }
 };
