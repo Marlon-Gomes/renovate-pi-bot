@@ -7,11 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+
+- Unit tests for the new formatter script, covering TTY/non-TTY modes,
+deduplication, and parsing.
+- Pinned environment management using `uv` and `pyproject.toml` to ensure
+consistent execution.
+- GitHub Action workflow to automatically test the log formatter on push/PR.
+
 ### Changed
 
 - Documentation: Updated README with "Known Issues and Limitations" regarding
 public vulnerability disclosure and provided mitigation strategies for
 `renovate.json`.
+- Replaced the in-line Perl log processing script within `run-renovate.sh` with
+a dedicated Python script (`tools/format-renovate-logs.py`) for better
+maintainability and reliability.
 
 ## [0.4.0] - 2026-04-27
 
@@ -74,7 +85,7 @@ artifact upload failures.
 - `LICENSE` (MIT) and `README.md` with setup instructions.
 - `.dockerignore` safety mechanism to prevent credential leaks.
 
-[0.4.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
+[0.4.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.4.0
 [0.3.1]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.1
 [0.3.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.3.0
 [0.2.0]: https://github.com/Marlon-Gomes/renovate-pi-bot/releases/tag/v0.2.0

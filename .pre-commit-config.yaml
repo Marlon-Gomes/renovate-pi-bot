@@ -9,6 +9,7 @@ repos:
     -   id: check-json
     -   id: check-added-large-files
     -   id: check-merge-conflict
+    -   id: debug-statements
     -   id: detect-private-key
     -   id: no-commit-to-branch
 
@@ -26,3 +27,12 @@ repos:
     rev: v8.24.2
     hooks:
     -   id: gitleaks
+
+-   repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.12
+    hooks:
+    - id: ruff-check
+      args: [--fix]
+      types_or: [ python, pyi, pyproject ]
+    - id: ruff-format
+      types_or: [ python, pyi, pyproject ]

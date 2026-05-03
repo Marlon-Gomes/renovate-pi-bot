@@ -191,15 +191,18 @@ sudo logrotate -d /etc/logrotate.d/renovate
 
 ## Contributing
 
-To maintain code hygiene, this repository uses the
-[pre-commit](https://pre-commit.com) framework.
+To maintain project quality and consistency, we use [pre-commit] for automation
+and [uv] for reproducible Python environments.
 
-### Set up Pre-commit
+### Pre-commit Hooks
+
+We use the pre-commit framework to enforce code hygiene. Before your first
+commit, please set this up:
 
 1. **Install pre-commit:**
 
     ```bash
-    pip install pre-commit
+    pip install pre-commit # or use your preferred package manager
     ```
 
 2. **Install the git hooks:**
@@ -208,16 +211,51 @@ To maintain code hygiene, this repository uses the
     pre-commit install
     ```
 
-Now, every time you run `git commit`, these hooks will automatically run to:
+**What the hooks do**: Every time you run `git commit`, these hooks
+automatically run to:
 
 - Fix trailing whitespace and end-of-file issues
 - Validate YAML and JSON syntax
-- Lint markdown files using **markdownlint-cli2**
-- Lint shell scripts using **ShellCheck**
-- Check if you accidentally commited secrets with **Gitleaks**
+- Lint markdown files (**markdownlint-cli2**), shell scripts (**ShellCheck**),
+and Python code (**Ruff**).
+- Scan for commited secrets (**Gitleaks**)
+- Format Python code (**Ruff**)
+- Prevent accidental commits of debugging code (like `breakpoint()`)
 
-Note that markdownlint-cli2 does not offer fixes for all issues. You may need
-to make changes manually for some checks.
+> Note: Some markdown issues may require manual intervention as they cannot be
+> auto-fixed.
+
+### Tooling and local testing
+
+This project offers a Python script `tools/renovate_log_formatter.py` to format
+Renovate JSON logs in a human-readable format suitable for both TTY and non-TTY
+environments. We use `uv` to manage a consistent Python environment for the
+`tools/format-renovate-logs.py` script and its associated tests.
+
+#### Setting up the environment
+
+After cloning the repository, sync the environment to install all necessary
+dependencies:
+
+```bash
+uv sync
+```
+
+#### Running the formatter and tests
+
+Use `uv run` to execute tools within the managed virtual environment:
+
+- **Run tests locally**
+
+   ```bash
+   uv run pytest
+   ```
+
+- **Run the log formatter** against local JSON log files:
+
+    ```bash
+    uv run python tools/format-renovate-logs.py < your-sample-logs.jsonl
+    ```
 
 ## Known Issues and Limitations
 
@@ -278,3 +316,6 @@ disclosure, you can disable the feature entirely:
 ## License
 
 This project is licensed under the **MIT License**.
+
+[pre-commit]: https://pre-commit.com
+[uv]: https://docs.astral.sh/uv/
