@@ -1,6 +1,6 @@
 # Renovate Pi Bot
 
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://pre-commit.com/)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/Marlon-Gomes/renovate-pi-bot/main.svg)](https://results.pre-commit.ci/latest/github/Marlon-Gomes/renovate-pi-bot/main)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 A self-hosted, containerized Renovate instance. This bot automates dependency
