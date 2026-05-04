@@ -1,3 +1,5 @@
+const HOME = '/tmp/renovate'; // Renovate's internal working directory
+
 module.exports = {
   platform: 'github',
 
@@ -10,19 +12,35 @@ module.exports = {
   gitAuthor: process.env.RENOVATE_GIT_AUTHOR,
 
   // Storage and Caching
-  baseDir: '/tmp/renovate', // Renovate's internal working directory
-  cacheDir: '/tmp/renovate/cache', // Specific directory for persistent data
-  containerbaseDir: '/tmp/renovate/containerbase', // Specific directory for downloaded binaries/tools
+  baseDir: HOME,
+  cacheDir: `${HOME}/cache`, // Specific directory for persistent data
+  containerbaseDir: `${HOME}/containerbase`, // Specific directory for downloaded binaries/tools
   persistRepoData: true, // Speeds up nightly runs by keeping git clones
 
-  // Dashboard and Lifecycle
-  dependencyDashboard: true,
-  rebaseWhen: 'conflicted',
+  extends: [
+    'config:best-practices',
+    ':separateMultipleMajorReleases',
+    'packages:linters',
+    'packages:unitTest'
+  ],
 
   // Execution Logic
   onboarding: true, // Creates an onboarding PR for new repos
   // Use local timezone if environment variable is set, else UTC as default
   timezone: process.env.RENOVATE_TIMEZONE || 'UTC',
+  // Pin deps to exact versions (override locally for libraries)
+  rangeStrategy: 'pin',
+
+  // Release Age & Stability
+  minimumReleaseAge: '14 days',
+  minimumReleaseAgeBehaviour: 'timestamp-optional',
+  internalChecksFilter: 'strict', // Recommended for use with minimumReleaseAge
+
+  // Lock File Maintenance
+  // By default, this runs before 4am Mondays.
+  lockFileMaintenance: {
+    enabled: true
+  },
 
   // Security Scanning and Prioritization
   vulnerabilityAlerts: {
@@ -40,19 +58,18 @@ module.exports = {
       addLabels: [],
       // Ensures no security labels are added to the Dashboard issue
       dependencyDashboardLabels: []
-    }
+    },
   ],
-  // Global Settings
-  extends: [
-    'config:recommended' // Applies industry standard best practices
+  allowedCommands: [
+    "^(?:\\./)?tools/[\\w-]+\\.sh.*$"          // Whitelist custom post-upgrade commands
   ],
-  allowedCommands: ["^(?:\\./)?tools/[\\w-]+\\.sh.*$"],
+
   allowShellExecutorForPostUpgradeCommands: true,
   // Tool environment overrides to ensure tools have the right permissions
   customEnvVariables: {
-    HOME: '/tmp/renovate',
-    XDG_DATA_HOME: '$/tmp/renovate/.local/share',
-    XDG_CACHE_HOME: '$/tmp/renovate/cache',  // Enables automatic discovery for UV, Go
-    GOPATH: '$/tmp/renovate/cache/go'        // Required: Go doesn't use XDG_DATA_HOME
+    HOME: `${HOME}`,
+    XDG_DATA_HOME: `${HOME}/.local/share`,
+    XDG_CACHE_HOME: `${HOME}/cache`,  // Enables automatic discovery for UV, Go
+    GOPATH: `${HOME}/cache/go`        // Required: Go doesn't use XDG_DATA_HOME
   }
 };
