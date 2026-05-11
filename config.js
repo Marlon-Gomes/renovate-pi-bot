@@ -59,9 +59,20 @@ module.exports = {
       // Ensures no security labels are added to the Dashboard issue
       dependencyDashboardLabels: []
     },
+    {
+      // Match Python version in pyproject.toml requires-python
+      matchDatasources: ["python-version"],  // Correct for requires-python/python-version
+      rangeStrategy: "update-lockfile",      // Keeps your lockfile focus
+      postUpgradeTasks: {
+        commands: ["uv python pin {{newValue}}"],  // Pins .python-version to match requires-python
+        fileFilters: [".python-version", "pyproject.toml"],  // Covers common files
+        executionMode: "update-lockfile"  // Runs in artifact phase
+      }
+    }
   ],
   allowedCommands: [
-    "^(?:\\./)?tools/[\\w-]+\\.sh.*$"          // Whitelist custom post-upgrade commands
+    "^(?:\\./)?tools/[\\w-]+\\.sh.*$",          // Whitelist custom post-upgrade commands
+    "^uv python pin (3\\.[0-9]+\\.[0-9]+)?$",  // Matches "uv python pin 3.14.4" or bare
   ],
 
   allowShellExecutorForPostUpgradeCommands: true,
