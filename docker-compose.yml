@@ -1,6 +1,6 @@
 services:
   renovate:
-    image: renovate/renovate:43.249.7-full@sha256:02fda903f5520ac381515e0890e0ae8eb371eabcc13271b91febfbdd37519fbf
+    image: renovate/renovate:43.288.0-full@sha256:a56ca46bab7959c99c6f757092240214bc8b5da823d8aaf6b37551038366662a
     container_name: renovate_bot
     # Uses shell variables, defaults to 1000:1000 if they aren't set
     user: "${RENOVATE_UID:-1000}:${RENOVATE_GID:-1000}"
